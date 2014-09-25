@@ -9,10 +9,10 @@
 #ifndef WaitlessPO_WPOAppConstant_h
 #define WaitlessPO_WPOAppConstant_h
 
-//#define ASSET_URL               @"http://merchant.waitless.ibepo.com"
-//#define SERVER_URL              @"http://api.waitless.ibepo.com/"
-#define ASSET_URL               @"https://merchant.iwaitless.com/"
-#define SERVER_URL              @"https://api.iwaitless.com/"
+#define ASSET_URL               @"http://merchant.waitless.ibepo.com"
+#define SERVER_URL              @"http://api.waitless.ibepo.com/"
+//#define ASSET_URL               @"https://merchant.iwaitless.com/"
+//#define SERVER_URL              @"https://api.iwaitless.com/"
 #define DWOLLA_URL              @"https://www.dwolla.com/register"
 #define FORGOT_PASSWORD_URL     @"https://www.iwaitless.com/forgot"
 #define PRIVACY_POLICY_URL_M    @"https://www.iwaitless.com/mprivacy"

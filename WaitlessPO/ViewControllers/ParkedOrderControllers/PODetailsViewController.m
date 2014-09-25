@@ -359,7 +359,8 @@
     [params setObject:[AppInfo sharedInfo].user.tokenID forKey:@"TokenId"];
     [params setObject:[AppInfo sharedInfo].user.loginID forKey:@"LoginId"];
     [params setObject:[orderDetails objectForKey:@"Id"] forKey:@"ParkedOrderId"];
-    [params setObject:[NSNumber numberWithInt:7] forKey:@"Status"];
+    [params setObject:[NSNumber numberWithInt:1] forKey:@"IsDeprecated"];
+//    [params setObject:[NSNumber numberWithInt:7] forKey:@"Status"];
     [HTTPRequest requestPostWithMethod:@"RestaurantService/ParkedOrder/Update" Params:params andDelegate:self andRequestType:HTTPRequestTypeParkedOrder];
 }
 
@@ -938,7 +939,7 @@
     
     if (sender.state == UIGestureRecognizerStateBegan) {
         UIButton *button = (UIButton*)[sender view];
-        ButtonType type = button.tag;
+        ButtonType type = (ButtonType)button.tag;
         NSString *title = [AppInfo getButtonTitleOfType:type];
         CGSize size = [title sizeWithFont:button_title_lbl.font constrainedToSize:CGSizeMake(160.0, 25)];
         CGRect frame = CGRectMake(button.frame.origin.x, closed_order_bar.frame.origin.y-30.0, size.width+20.0, 25.0);

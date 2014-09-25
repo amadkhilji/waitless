@@ -203,7 +203,14 @@
 
 -(IBAction)gratuityValueChangedAction:(id)sender {
     
-    gratuity_slider_lbl.text = [NSString stringWithFormat:@"%.1f%%", ceilf(gratuity_slider.value)];
+    float fraction = ceilf(gratuity_slider.value)-gratuity_slider.value;
+    if (fraction < 0.5) {
+        gratuity_slider.value = floorf(gratuity_slider.value);
+    }
+    else {
+        gratuity_slider.value = ceilf(gratuity_slider.value);
+    }
+    gratuity_slider_lbl.text = [NSString stringWithFormat:@"%.1f%%", gratuity_slider.value];
 }
 
 -(IBAction)logoutButtonAction:(id)sender {

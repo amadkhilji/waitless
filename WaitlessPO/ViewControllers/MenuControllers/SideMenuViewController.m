@@ -81,28 +81,28 @@
 
 -(void)postSocialStatusUpdate {
    
-    @synchronized (self) {
-        if ([AppInfo sharedInfo].sessionType == SessionTypeFacebook) {
-            [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions", @"publish_stream", nil] defaultAudience:FBSessionDefaultAudienceEveryone allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error){
-                if (!error && status == FBSessionStateOpen) {
-//                    NSString *link = @"{\"saves time at restaurants using \":{\"href\":\"https://www.iwaitless.com/\",\"text\":\"Waitless\"}}";
-                    NSString *name = [NSString stringWithFormat:@"%@ %@", [[AppInfo sharedInfo].fbUserData objectForKey:@"first_name"], [[AppInfo sharedInfo].fbUserData objectForKey:@"last_name"]];
-                    NSString *postMessage = [NSString stringWithFormat:@"%@ saves time at restaurants using Waitless.", name];
-                    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                                   postMessage, @"message",
-                                                   [AppInfo getAppName], @"name",
-                                                   @"https://www.iwaitless.com/", @"link",
-                                                   @"https://pbs.twimg.com/profile_images/3759823209/a03789f7c277297778294e697a8a3052.jpeg", @"picture",
-                                                   nil];
-                    [FBRequestConnection startWithGraphPath:@"me/feed" parameters:params HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error){
-                        if (!error) {
-                            [[AppInfo sharedInfo] setSocialPost:YES];
-                        }
-                    }];
-                }
-            }];
-        }
-    }
+//    @synchronized (self) {
+//        if ([AppInfo sharedInfo].sessionType == SessionTypeFacebook) {
+//            [FBSession openActiveSessionWithPublishPermissions:[NSArray arrayWithObjects:@"publish_actions", @"publish_stream", nil] defaultAudience:FBSessionDefaultAudienceEveryone allowLoginUI:YES completionHandler:^(FBSession *session, FBSessionState status, NSError *error){
+//                if (!error && status == FBSessionStateOpen) {
+////                    NSString *link = @"{\"saves time at restaurants using \":{\"href\":\"https://www.iwaitless.com/\",\"text\":\"Waitless\"}}";
+//                    NSString *name = [NSString stringWithFormat:@"%@ %@", [[AppInfo sharedInfo].fbUserData objectForKey:@"first_name"], [[AppInfo sharedInfo].fbUserData objectForKey:@"last_name"]];
+//                    NSString *postMessage = [NSString stringWithFormat:@"%@ saves time at restaurants using Waitless.", name];
+//                    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+//                                                   postMessage, @"message",
+//                                                   [AppInfo getAppName], @"name",
+//                                                   @"https://www.iwaitless.com/", @"link",
+//                                                   @"https://pbs.twimg.com/profile_images/3759823209/a03789f7c277297778294e697a8a3052.jpeg", @"picture",
+//                                                   nil];
+//                    [FBRequestConnection startWithGraphPath:@"me/feed" parameters:params HTTPMethod:@"POST" completionHandler:^(FBRequestConnection *connection, id result, NSError *error){
+//                        if (!error) {
+//                            [[AppInfo sharedInfo] setSocialPost:YES];
+//                        }
+//                    }];
+//                }
+//            }];
+//        }
+//    }
 }
 
 -(void)goToHelp {

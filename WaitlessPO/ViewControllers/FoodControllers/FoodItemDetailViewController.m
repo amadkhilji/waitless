@@ -119,6 +119,14 @@
         }
     }
     if (viewController) {
+        NSMutableString *foodOptions = [NSMutableString string];
+        for (int i=0; i<[selectedFoodOptions count]; i++) {
+            if (i>0) {
+                [foodOptions appendString:@","];
+            }
+            [foodOptions appendString:[selectedFoodOptions objectAtIndex:i]];
+        }
+        [foodData setObject:foodOptions forKey:@"FoodOptionChoiceId"];
         [viewController setFoodItem:foodData];
         [self.navigationController popToViewController:viewController animated:YES];
     }

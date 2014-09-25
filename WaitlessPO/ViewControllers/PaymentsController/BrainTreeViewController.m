@@ -31,7 +31,7 @@
 	// Do any additional setup after loading the view.
     didRegisterBrainTreeSuccessfully = NO;
     [SVProgressHUD showWithStatus:@"Loading..." maskType:SVProgressHUDMaskTypeGradient];
-    [webView_container loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:BRAIN_TREE_SIGNUP_URL]]];
+    [webView_container loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?email=%@", BRAIN_TREE_SIGNUP_URL, [AppInfo sharedInfo].user.emailAddress]]]];
 }
 
 - (void)didReceiveMemoryWarning
