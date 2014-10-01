@@ -780,7 +780,7 @@
                 [[AppInfo sharedInfo].user addParkedOrder:parkedOrder];
                 PODetailsViewController *po_DetailsVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"PODetailsViewController"];
                 po_DetailsVC.orderDetails = dictionary;
-                //            po_DetailsVC.gratuity_rate = [AppInfo sharedInfo].user.gratuity_rate;
+//                po_DetailsVC.gratuity_rate = [AppInfo sharedInfo].user.gratuity_rate;
                 [pageController.navigationController pushViewController:po_DetailsVC animated:YES];
                 if (restaurantModel.isPayNow) {
                     [self cancelPayNowOrderAction:nil];

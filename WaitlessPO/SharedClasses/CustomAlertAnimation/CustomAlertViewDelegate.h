@@ -10,7 +10,7 @@
 
 @protocol CustomAlertViewDelegate <NSObject>
 @required
-- (void) customAlertView:(id)alertView dismissedWithValue:(NSString *)value;
+- (void) customAlertView:(id)alertView dismissedWithValue:(id)value;
 
 @optional
 - (void) customAlertViewCancelled:(id)alertView;

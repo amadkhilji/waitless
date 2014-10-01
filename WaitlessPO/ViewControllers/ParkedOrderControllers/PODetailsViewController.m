@@ -279,7 +279,7 @@
         if ([food objectForKey:@"Id"]) {
             [foodItem setObject:[food objectForKey:@"Id"] forKey:@"FoodItemId"];
         }
-        if ([food objectForKey:@"FoodOptionChoiceId"] && (NSNull*)[food objectForKey:@"FoodOptionChoiceId"] != [NSNull null]) {
+        if ([food objectForKey:@"FoodOptionChoiceId"] && (NSNull*)[food objectForKey:@"FoodOptionChoiceId"] != [NSNull null] && [[food objectForKey:@"FoodOptionChoiceId"] length] > 0) {
             [foodItem setObject:[food objectForKey:@"FoodOptionChoiceId"] forKey:@"FoodOptionChoiceId"];
         }
         if ([food objectForKey:@"Price"]) {
@@ -287,6 +287,9 @@
         }
         if ([food objectForKey:@"Quantity"]) {
             [foodItem setObject:[food objectForKey:@"Quantity"] forKey:@"Quantity"];
+        }
+        if ([food objectForKey:@"FoodItemAdditionId"] && (NSNull*)[food objectForKey:@"FoodItemAdditionId"] != [NSNull null] && [[food objectForKey:@"FoodItemAdditionId"] length] > 0) {
+            [foodItem setObject:[food objectForKey:@"FoodItemAdditionId"] forKey:@"FoodItemAdditionId"];
         }
         [list addObject:foodItem];
     }
@@ -327,7 +330,7 @@
         if ([food objectForKey:@"Id"]) {
             [foodItem setObject:[food objectForKey:@"Id"] forKey:@"FoodItemId"];
         }
-        if ([food objectForKey:@"FoodOptionChoiceId"] && (NSNull*)[food objectForKey:@"FoodOptionChoiceId"] != [NSNull null]) {
+        if ([food objectForKey:@"FoodOptionChoiceId"] && (NSNull*)[food objectForKey:@"FoodOptionChoiceId"] != [NSNull null] && [[food objectForKey:@"FoodOptionChoiceId"] length] > 0) {
             [foodItem setObject:[food objectForKey:@"FoodOptionChoiceId"] forKey:@"FoodOptionChoiceId"];
         }
         if ([food objectForKey:@"Price"]) {
@@ -335,6 +338,9 @@
         }
         if ([food objectForKey:@"Quantity"]) {
             [foodItem setObject:[food objectForKey:@"Quantity"] forKey:@"Quantity"];
+        }
+        if ([food objectForKey:@"FoodItemAdditionId"] && (NSNull*)[food objectForKey:@"FoodItemAdditionId"] != [NSNull null] && [[food objectForKey:@"FoodItemAdditionId"] length] > 0) {
+            [foodItem setObject:[food objectForKey:@"FoodItemAdditionId"] forKey:@"FoodItemAdditionId"];
         }
         [list addObject:foodItem];
     }
@@ -443,7 +449,21 @@
         if ([[item objectForKey:@"Id"] isEqualToString:[foodItem objectForKey:@"Id"]]) {
             id optionID1 = [item objectForKey:@"FoodOptionChoiceId"];
             id optionID2 = [foodItem objectForKey:@"FoodOptionChoiceId"];
-            if ((optionID1 == [NSNull null] && optionID2 == [NSNull null]) || (optionID1 != [NSNull null] && optionID2 != [NSNull null] && [optionID1 isEqualToString:optionID2])) {
+            id additionID1 = [item objectForKey:@"FoodItemAdditionId"];
+            id additionID2 = [foodItem objectForKey:@"FoodItemAdditionId"];
+            if (optionID1 == [NSNull null]) {
+                optionID1 = [NSString string];
+            }
+            if (optionID2 == [NSNull null]) {
+                optionID2 = [NSString string];
+            }
+            if (additionID1 == [NSNull null]) {
+                additionID1 = [NSString string];
+            }
+            if (additionID2 == [NSNull null]) {
+                additionID2 = [NSString string];
+            }
+            if ([optionID1 isEqualToString:optionID2] && [additionID1 isEqualToString:additionID2]) {
                 NSMutableDictionary *foodData = [NSMutableDictionary dictionaryWithDictionary:item];
                 int quantity = [[item objectForKey:@"Quantity"] intValue];
                 [foodData setObject:[NSNumber numberWithInt:quantity+1] forKey:@"Quantity"];
@@ -457,6 +477,7 @@
         [item setObject:[foodItem objectForKey:@"Id"] forKey:@"Id"];
         [item setObject:[NSNumber numberWithDouble:[[foodItem objectForKey:@"Price"] doubleValue]] forKey:@"Price"];
         [item setObject:[foodItem objectForKey:@"FoodOptionChoiceId"] forKey:@"FoodOptionChoiceId"];
+        [item setObject:[foodItem objectForKey:@"FoodItemAdditionId"] forKey:@"FoodItemAdditionId"];
         [item setObject:[NSNumber numberWithInt:1] forKey:@"Quantity"];
         [item setObject:[foodItem objectForKey:@"Name"] forKey:@"Name"];
         [foodItemsList addObject:item];
@@ -974,6 +995,11 @@
 #pragma mark
 #pragma mark UITableViewDataSource/UITableViewDelegate Methods
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    return 55.0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     if ([foodItemsList count] == 0) {
@@ -1038,7 +1064,41 @@
                 }
             }
         }
-        if (hasFoundNames && foodOptionNames.length > 0) {
+        hasFoundNames = NO;
+        if ([foodItem objectForKey:@"FoodItemAdditionId"] && (NSNull*)[foodItem objectForKey:@"FoodItemAdditionId"] != [NSNull null]) {
+            NSArray *foodAdditionIDs = [[foodItem objectForKey:@"FoodItemAdditionId"] componentsSeparatedByString:@","];
+            if (foodAdditionIDs && [foodAdditionIDs isKindOfClass:[NSArray class]] && [foodAdditionIDs count] > 0) {
+                RestaurantModel *restaurant = [orderDetails objectForKey:@"restaurantModel"];
+                for (int i=0; i<[restaurant.foodCategoryList count] && !hasFoundNames; i++) {
+                    NSDictionary *category = [restaurant.foodCategoryList objectAtIndex:i];
+                    NSArray *foodItems = [[category objectForKey:@"FoodItemList"] objectForKey:@"List"];
+                    for (int j=0; j<[foodItems count] && !hasFoundNames; j++) {
+                        NSDictionary *food = [foodItems objectAtIndex:j];
+                        if ([[foodItem objectForKey:@"Id"] isEqualToString:[food objectForKey:@"Id"]]) {
+                            if ([food objectForKey:@"FoodAdditionList"] && (NSNull*)[food objectForKey:@"FoodAdditionList"] != [NSNull null]) {
+                                NSArray *foodAdditionList = [[food objectForKey:@"FoodAdditionList"] objectForKey:@"List"];
+                                for (int k=0; k<[foodAdditionList count]; k++) {
+                                    NSDictionary *foodAdditionItem = [foodAdditionList objectAtIndex:k];
+                                    for (int n=0; n<[foodAdditionIDs count]; n++) {
+                                        if ([[foodAdditionIDs objectAtIndex:n] isEqualToString:[foodAdditionItem objectForKey:@"Id"]]) {
+                                            if (foodOptionNames.length == 0) {
+                                                [foodOptionNames appendString:@"("];
+                                            }
+                                            else {
+                                                [foodOptionNames appendString:@", "];
+                                            }
+                                            [foodOptionNames appendString:[foodAdditionItem objectForKey:@"Name"]];
+                                            hasFoundNames = YES;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (foodOptionNames.length > 0) {
             [foodOptionNames appendString:@")"];
         }
         cell.options_lbl.text = foodOptionNames;
@@ -1181,7 +1241,7 @@
 #pragma mark
 #pragma mark CustomeAlertViewDelegate Methods
 
-- (void) customAlertView:(id)alertView dismissedWithValue:(NSString *)value {
+- (void) customAlertView:(id)alertView dismissedWithValue:(id)value {
     
     if ([value isEqualToString:DWOLLA_PAYMENT]) {
         [self dwollaButtonClick:nil];

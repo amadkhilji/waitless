@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomAlertViewDelegate.h"
 
-@interface FoodItemDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate> {
+@interface FoodItemDetailViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, CustomAlertViewDelegate> {
     
     IBOutlet UILabel *title_lbl, *food_name_lbl, *food_price_lbl, *food_description_lbl, *order_btn_lbl, *price_lbl, *quantity_lbl;
     IBOutlet UIView *price_quantity_view;

@@ -204,6 +204,9 @@
 		775B41E9183CD13E00EA6C3A /* RestaurantCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 775B41E4183CD13E00EA6C3A /* RestaurantCell.xib */; };
 		775B41EA183CD13E00EA6C3A /* RestaurantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 775B41E6183CD13E00EA6C3A /* RestaurantViewController.m */; };
 		77643521187A94D100E0F872 /* PageSwipeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77643520187A94D100E0F872 /* PageSwipeController.m */; };
+		7771365B19D44C07008132FF /* FoodAdditionAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7771365A19D44C07008132FF /* FoodAdditionAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7771365F19D45D79008132FF /* FoodAdditionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7771365D19D45D79008132FF /* FoodAdditionCell.m */; };
+		7771366019D45D79008132FF /* FoodAdditionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7771365E19D45D79008132FF /* FoodAdditionCell.xib */; };
 		777E80C1187447CA001222D0 /* OpenSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 777E80C0187447CA001222D0 /* OpenSourceViewController.m */; };
 		77841E311851BD6B00434603 /* list_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 77841E2F1851BD6B00434603 /* list_icon.png */; };
 		77841E321851BD6B00434603 /* list_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 77841E301851BD6B00434603 /* list_icon@2x.png */; };
@@ -551,6 +554,11 @@
 		7764351F187A94D100E0F872 /* PageSwipeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageSwipeController.h; sourceTree = "<group>"; };
 		77643520187A94D100E0F872 /* PageSwipeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageSwipeController.m; sourceTree = "<group>"; };
 		7765925B183E499A00C67FF8 /* WPOAppConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WPOAppConstant.h; sourceTree = "<group>"; };
+		7771365919D44C07008132FF /* FoodAdditionAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodAdditionAlertView.h; sourceTree = "<group>"; };
+		7771365A19D44C07008132FF /* FoodAdditionAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodAdditionAlertView.m; sourceTree = "<group>"; };
+		7771365C19D45D79008132FF /* FoodAdditionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoodAdditionCell.h; sourceTree = "<group>"; };
+		7771365D19D45D79008132FF /* FoodAdditionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoodAdditionCell.m; sourceTree = "<group>"; };
+		7771365E19D45D79008132FF /* FoodAdditionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FoodAdditionCell.xib; sourceTree = "<group>"; };
 		777E80BF187447CA001222D0 /* OpenSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenSourceViewController.h; sourceTree = "<group>"; };
 		777E80C0187447CA001222D0 /* OpenSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenSourceViewController.m; sourceTree = "<group>"; };
 		77841E2F1851BD6B00434603 /* list_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list_icon.png; sourceTree = "<group>"; };
@@ -875,6 +883,11 @@
 				0066D6321850FB200055EABE /* FoodItemViewController.m */,
 				00D7E3FB1853EC65003ED9FA /* FoodItemDetailViewController.h */,
 				00D7E3FC1853EC65003ED9FA /* FoodItemDetailViewController.m */,
+				7771365919D44C07008132FF /* FoodAdditionAlertView.h */,
+				7771365A19D44C07008132FF /* FoodAdditionAlertView.m */,
+				7771365C19D45D79008132FF /* FoodAdditionCell.h */,
+				7771365D19D45D79008132FF /* FoodAdditionCell.m */,
+				7771365E19D45D79008132FF /* FoodAdditionCell.xib */,
 			);
 			path = FoodControllers;
 			sourceTree = "<group>";
@@ -1455,6 +1468,7 @@
 				7735B11A18C705170098736A /* Icon-60@2x.png in Resources */,
 				77200527184F25840067677B /* nav_bar_btn.png in Resources */,
 				00C1F37B184E3EA600C52F38 /* Icon-72.png in Resources */,
+				7771366019D45D79008132FF /* FoodAdditionCell.xib in Resources */,
 				00C1F37F184E3EA600C52F38 /* Icon-Small.png in Resources */,
 				0016980518786AB800F37F9A /* pin_white_icon.png in Resources */,
 				001697F9187845D100F37F9A /* share_icon.png in Resources */,
@@ -1598,12 +1612,14 @@
 				77AC3C37184C74EE008596C2 /* OAPlaintextSignatureProvider.m in Sources */,
 				00067A33185C5EC900E5E0BF /* PODetailsCell.m in Sources */,
 				0083187D18707D92008BE666 /* SBJsonStreamParserAdapter.m in Sources */,
+				7771365B19D44C07008132FF /* FoodAdditionAlertView.m in Sources */,
 				00D7E40B1853FF3E003ED9FA /* SettingsViewController.m in Sources */,
 				77AC3C2E184C74EE008596C2 /* NSURL+Base.m in Sources */,
 				775B41E8183CD13E00EA6C3A /* RestaurantCell.m in Sources */,
 				7753FCF71848C58E00E1CF1B /* MFSideMenuContainerViewController.m in Sources */,
 				7717103C18C5C3A5004DA3AF /* PaymentCell.m in Sources */,
 				0083188218707D92008BE666 /* SBJsonTokeniser.m in Sources */,
+				7771365F19D45D79008132FF /* FoodAdditionCell.m in Sources */,
 				77AC3C3B184C74EE008596C2 /* OAToken.m in Sources */,
 				777E80C1187447CA001222D0 /* OpenSourceViewController.m in Sources */,
 				0083187118707D92008BE666 /* DwollaTransactions.m in Sources */,

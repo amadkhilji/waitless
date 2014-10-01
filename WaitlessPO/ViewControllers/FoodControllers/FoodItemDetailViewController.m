@@ -9,8 +9,11 @@
 #import "FoodItemDetailViewController.h"
 #import "UIImageView+WebCache.h"
 #import "PODetailsViewController.h"
+#import "FoodAdditionAlertView.h"
 
 @interface FoodItemDetailViewController ()
+
+-(void)addFoodItemToOrder;
 
 @end
 
@@ -102,14 +105,9 @@
 }
 
 #pragma mark
-#pragma mark IBAction Methods
+#pragma mark Private Methods
 
--(IBAction)backAction:(id)sender {
-
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
--(IBAction)orderAction:(id)sender {
+-(void)addFoodItemToOrder {
     
     PODetailsViewController *viewController = Nil;
     for (UIViewController *vc in self.navigationController.viewControllers) {
@@ -129,6 +127,28 @@
         [foodData setObject:foodOptions forKey:@"FoodOptionChoiceId"];
         [viewController setFoodItem:foodData];
         [self.navigationController popToViewController:viewController animated:YES];
+    }
+}
+
+#pragma mark
+#pragma mark IBAction Methods
+
+-(IBAction)backAction:(id)sender {
+
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(IBAction)orderAction:(id)sender {
+    
+    if ([foodData objectForKey:@"FoodAdditionList"] && (NSNull*)[foodData objectForKey:@"FoodAdditionList"] != [NSNull null] && [[foodData objectForKey:@"FoodAdditionList"] objectForKey:@"List"] && (NSNull*)[[foodData objectForKey:@"FoodAdditionList"] objectForKey:@"List"] != [NSNull null] && [[[foodData objectForKey:@"FoodAdditionList"] objectForKey:@"List"] isKindOfClass:[NSArray class]] && [[[foodData objectForKey:@"FoodAdditionList"] objectForKey:@"List"] count] > 0) {
+        FoodAdditionAlertView *foodAlert = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"FoodAdditionAlertView"];
+        [foodAlert loadFoodAdditionsList:[[foodData objectForKey:@"FoodAdditionList"] objectForKey:@"List"]];
+        foodAlert.delegate = self;
+        [foodAlert show];
+    }
+    else {
+        [foodData setObject:@"" forKey:@"FoodItemAdditionId"];
+        [self addFoodItemToOrder];
     }
 }
 
@@ -282,6 +302,25 @@
         }
         [foodData setObject:foodOptions forKey:@"FoodOptionChoiceId"];
         [foodOptionTable reloadData];
+    }
+}
+
+-(void)customAlertView:(id)alertView dismissedWithValue:(id)value {
+    
+    if (value && [value isKindOfClass:[NSArray class]]) {
+        NSMutableString *foodAdditionIds = [NSMutableString string];
+        float amount = [[foodData objectForKey:@"Price"] floatValue];
+        for (int i=0; i<[value count]; i++) {
+            NSDictionary *foodItem = [value objectAtIndex:i];
+            amount += [[foodItem objectForKey:@"Price"] floatValue];
+            if (foodAdditionIds.length > 0 && i>0) {
+                [foodAdditionIds appendString:@","];
+            }
+            [foodAdditionIds appendString:[foodItem objectForKey:@"Id"]];
+        }
+        [foodData setObject:foodAdditionIds forKey:@"FoodItemAdditionId"];
+        [foodData setObject:[NSNumber numberWithFloat:amount] forKey:@"Price"];
+        [self addFoodItemToOrder];
     }
 }
 

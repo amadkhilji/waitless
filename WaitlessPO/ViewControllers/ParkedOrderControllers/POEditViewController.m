@@ -500,6 +500,11 @@
 #pragma mark
 #pragma mark UITableViewDataSource/UITableViewDelegate Methods
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 55.0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     return [foodItemsList count];
@@ -558,7 +563,41 @@
             }
         }
     }
-    if (hasFoundNames && foodOptionNames.length > 0) {
+    hasFoundNames = NO;
+    if ([foodItem objectForKey:@"FoodItemAdditionId"] && (NSNull*)[foodItem objectForKey:@"FoodItemAdditionId"] != [NSNull null]) {
+        NSArray *foodAdditionIDs = [[foodItem objectForKey:@"FoodItemAdditionId"] componentsSeparatedByString:@","];
+        if (foodAdditionIDs && [foodAdditionIDs isKindOfClass:[NSArray class]] && [foodAdditionIDs count] > 0) {
+            RestaurantModel *restaurant = [orderDetails objectForKey:@"restaurantModel"];
+            for (int i=0; i<[restaurant.foodCategoryList count] && !hasFoundNames; i++) {
+                NSDictionary *category = [restaurant.foodCategoryList objectAtIndex:i];
+                NSArray *foodItems = [[category objectForKey:@"FoodItemList"] objectForKey:@"List"];
+                for (int j=0; j<[foodItems count] && !hasFoundNames; j++) {
+                    NSDictionary *food = [foodItems objectAtIndex:j];
+                    if ([[foodItem objectForKey:@"Id"] isEqualToString:[food objectForKey:@"Id"]]) {
+                        if ([food objectForKey:@"FoodAdditionList"] && (NSNull*)[food objectForKey:@"FoodAdditionList"] != [NSNull null]) {
+                            NSArray *foodAdditionList = [[food objectForKey:@"FoodAdditionList"] objectForKey:@"List"];
+                            for (int k=0; k<[foodAdditionList count]; k++) {
+                                NSDictionary *foodAdditionItem = [foodAdditionList objectAtIndex:k];
+                                for (int n=0; n<[foodAdditionIDs count]; n++) {
+                                    if ([[foodAdditionIDs objectAtIndex:n] isEqualToString:[foodAdditionItem objectForKey:@"Id"]]) {
+                                        if (foodOptionNames.length == 0) {
+                                            [foodOptionNames appendString:@"("];
+                                        }
+                                        else {
+                                            [foodOptionNames appendString:@", "];
+                                        }
+                                        [foodOptionNames appendString:[foodAdditionItem objectForKey:@"Name"]];
+                                        hasFoundNames = YES;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if (foodOptionNames.length > 0) {
         [foodOptionNames appendString:@")"];
     }
     cell.options_lbl.text = foodOptionNames;
