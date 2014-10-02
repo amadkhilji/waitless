@@ -20,12 +20,14 @@
 #import "ReviewOrderVC.h"
 #import "POTransactionVC.h"
 #import "BTTransactionVC.h"
+#import "CustomGratuityAlertView.h"
 #import <MapKit/MapKit.h>
 
 @interface PODetailsViewController ()
 
 -(void)setParkedOrderDetails;
 -(void)setOrderCost;
+-(void)updateGratuity:(float)gratuityAmount;
 -(void)requestForUpdateParkedOrder;
 -(void)requestForUpdateParkedOrderInBackground;
 -(void)requestForUpdateParkedOrderPaymentInfo;
@@ -243,6 +245,35 @@
         }
         orderTable.tableFooterView = footerView;
         [orderTable reloadData];
+    }
+}
+
+-(void)updateGratuity:(float)gratuityAmount {
+    
+    if (orderDetails) {
+        UserModel *user = [AppInfo sharedInfo].user;
+        float sub_total = [[sub_total_lbl.text stringByReplacingOccurrencesOfString:@"$" withString:@""] floatValue];
+        if (sub_total > 0) {
+            gratuity_rate = (gratuityAmount*100.0)/sub_total;
+        }
+        else {
+            if (gratuityAmount > 0.0) {
+                gratuity_rate = 100.0;
+            }
+            else {
+                gratuity_rate = 0.0;
+            }
+        }
+        NSMutableDictionary *parkedOrder = [NSMutableDictionary dictionaryWithDictionary:orderDetails];
+        [parkedOrder setObject:[NSNumber numberWithFloat:gratuityAmount] forKey:@"Gratuity"];
+        if (gratuity_rate == user.gratuity_rate) {
+            [parkedOrder setObject:[NSNumber numberWithInt:0] forKey:@"IsCustomGratuity"];
+        }
+        else {
+            [parkedOrder setObject:[NSNumber numberWithInt:1] forKey:@"IsCustomGratuity"];
+        }
+        self.orderDetails = parkedOrder;
+        [self setOrderCost];
     }
 }
 
@@ -956,6 +987,18 @@
     }];
 }
 
+-(IBAction)editGraduityAction:(id)sender {
+    
+    float totalCost = [[sub_total_lbl.text stringByReplacingOccurrencesOfString:@"$" withString:@""] floatValue];
+    float gratuityAmount = [[gratuity_rate_lbl.text stringByReplacingOccurrencesOfString:@"$" withString:@""] floatValue];
+    
+    CustomGratuityAlertView *gratuityAlert = [[CustomGratuityAlertView alloc] initWithNibName:@"CustomGratuityAlertView" bundle:[NSBundle mainBundle]];
+    gratuityAlert.totalCost = totalCost;
+    gratuityAlert.gratuityAmount = gratuityAmount;
+    gratuityAlert.delegate = self;
+    [gratuityAlert show];
+}
+
 -(IBAction)longPressGesture:(UILongPressGestureRecognizer*)sender {
     
     if (sender.state == UIGestureRecognizerStateBegan) {
@@ -1243,14 +1286,21 @@
 
 - (void) customAlertView:(id)alertView dismissedWithValue:(id)value {
     
-    if ([value isEqualToString:DWOLLA_PAYMENT]) {
-        [self dwollaButtonClick:nil];
+    if ([alertView isKindOfClass:[CustomGratuityAlertView class]]) {
+        float gratuityAmount = [value floatValue];
+        [self updateGratuity:gratuityAmount];
+        [self requestForUpdateParkedOrder];
     }
-    else if ([value isEqualToString:PAYPAL_PAYMENT]) {
-        
-    }
-    else if ([value isEqualToString:VISA_PAYMENT] || [value isEqualToString:MASTER_CARD_PAYMENT] || [value isEqualToString:AMERICAN_EXPRESS_PAYMENT] || [value isEqualToString:DISCOVER_PAYMENT] || [value isEqualToString:BRAINTREE_PAYMENT]) {
-        [self showBrainTreePaymentAlert];
+    else {
+        if ([value isEqualToString:DWOLLA_PAYMENT]) {
+            [self dwollaButtonClick:nil];
+        }
+        else if ([value isEqualToString:PAYPAL_PAYMENT]) {
+            
+        }
+        else if ([value isEqualToString:VISA_PAYMENT] || [value isEqualToString:MASTER_CARD_PAYMENT] || [value isEqualToString:AMERICAN_EXPRESS_PAYMENT] || [value isEqualToString:DISCOVER_PAYMENT] || [value isEqualToString:BRAINTREE_PAYMENT]) {
+            [self showBrainTreePaymentAlert];
+        }
     }
 }
 

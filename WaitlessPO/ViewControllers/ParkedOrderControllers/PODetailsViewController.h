@@ -72,6 +72,7 @@
 -(IBAction)payNowOrderAction:(id)sender;
 -(IBAction)cancelPayNowOrderAction:(id)sender;
 -(IBAction)editPayNowOrderAction:(id)sender;
+-(IBAction)editGraduityAction:(id)sender;
 
 -(IBAction)longPressGesture:(UILongPressGestureRecognizer*)sender;
 

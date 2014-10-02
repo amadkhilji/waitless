@@ -175,6 +175,8 @@
 		7717104118C5C3E6004DA3AF /* PaymentSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 7717104018C5C3E6004DA3AF /* PaymentSection.m */; };
 		7717104318C5C3FA004DA3AF /* PaymentSection.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7717104218C5C3FA004DA3AF /* PaymentSection.xib */; };
 		77200527184F25840067677B /* nav_bar_btn.png in Resources */ = {isa = PBXBuildFile; fileRef = 77200526184F25840067677B /* nav_bar_btn.png */; };
+		7729EBF319DDC66900E463CF /* CustomGratuityAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7729EBF119DDC66900E463CF /* CustomGratuityAlertView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		7729EBF419DDC66900E463CF /* CustomGratuityAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7729EBF219DDC66900E463CF /* CustomGratuityAlertView.xib */; };
 		7735B11718C705170098736A /* Icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7735B11318C705170098736A /* Icon-40.png */; };
 		7735B11818C705170098736A /* Icon-40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7735B11418C705170098736A /* Icon-40@2x.png */; };
 		7735B11918C705170098736A /* Icon-60.png in Resources */ = {isa = PBXBuildFile; fileRef = 7735B11518C705170098736A /* Icon-60.png */; };
@@ -513,6 +515,9 @@
 		7717104018C5C3E6004DA3AF /* PaymentSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaymentSection.m; sourceTree = "<group>"; };
 		7717104218C5C3FA004DA3AF /* PaymentSection.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PaymentSection.xib; sourceTree = "<group>"; };
 		77200526184F25840067677B /* nav_bar_btn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nav_bar_btn.png; sourceTree = "<group>"; };
+		7729EBF019DDC66900E463CF /* CustomGratuityAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomGratuityAlertView.h; sourceTree = "<group>"; };
+		7729EBF119DDC66900E463CF /* CustomGratuityAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomGratuityAlertView.m; sourceTree = "<group>"; };
+		7729EBF219DDC66900E463CF /* CustomGratuityAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomGratuityAlertView.xib; sourceTree = "<group>"; };
 		7735B11318C705170098736A /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
 		7735B11418C705170098736A /* Icon-40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40@2x.png"; sourceTree = "<group>"; };
 		7735B11518C705170098736A /* Icon-60.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-60.png"; sourceTree = "<group>"; };
@@ -1162,6 +1167,9 @@
 				00A29F6118A03373007EF268 /* CustomReview.m */,
 				0063B9A418D8BB6100BFFD4F /* BTTransactionVC.h */,
 				0063B9A518D8BB6100BFFD4F /* BTTransactionVC.m */,
+				7729EBF019DDC66900E463CF /* CustomGratuityAlertView.h */,
+				7729EBF119DDC66900E463CF /* CustomGratuityAlertView.m */,
+				7729EBF219DDC66900E463CF /* CustomGratuityAlertView.xib */,
 			);
 			path = ParkedOrderControllers;
 			sourceTree = "<group>";
@@ -1473,6 +1481,7 @@
 				0016980518786AB800F37F9A /* pin_white_icon.png in Resources */,
 				001697F9187845D100F37F9A /* share_icon.png in Resources */,
 				775B41E9183CD13E00EA6C3A /* RestaurantCell.xib in Resources */,
+				7729EBF419DDC66900E463CF /* CustomGratuityAlertView.xib in Resources */,
 				77841E3A1851F2CC00434603 /* payment_icon@2x.png in Resources */,
 				7753FD031848C61000E1CF1B /* SideMenuViewController.xib in Resources */,
 				7735B11818C705170098736A /* Icon-40@2x.png in Resources */,
@@ -1642,6 +1651,7 @@
 				7753FCF81848C58E00E1CF1B /* UIViewController+MFSideMenuAdditions.m in Sources */,
 				77391475184DC55D001CC833 /* RestaurantDetailsViewController.m in Sources */,
 				77AC3C34184C74EE008596C2 /* OADataFetcher.m in Sources */,
+				7729EBF319DDC66900E463CF /* CustomGratuityAlertView.m in Sources */,
 				00D7E40E1853FF51003ED9FA /* ProfileViewController.m in Sources */,
 				77975D341848DEC600959203 /* SideMenuViewController.m in Sources */,
 				0083186A18707D92008BE666 /* DwollaAPI.m in Sources */,
