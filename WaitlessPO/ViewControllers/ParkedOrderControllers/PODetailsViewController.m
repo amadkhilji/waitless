@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "MFSideMenu.h"
 #import "FoodCategoriesViewController.h"
+#import "FoodItemViewController.h"
 #import "SVProgressHUD.h"
 #import "POEditViewController.h"
 #import "UserModel.h"
@@ -35,6 +36,11 @@
 -(void)requestForGettingParkedOrder;
 -(void)showBrainTreePaymentAlert;
 -(void)showPayNowAlert;
+-(void)showPaymentMethodsIfAvailable;
+-(void)showBeveragesAlertView;
+-(void)hideBeveragesAlertView;
+-(NSArray*)getBeveragesList;
+-(BOOL)foundBeveragesInParkedOrder;
 
 @end
 
@@ -458,6 +464,100 @@
     }];
 }
 
+-(void)showPaymentMethodsIfAvailable {
+    
+    UserModel *user = [AppInfo sharedInfo].user;
+    BOOL hasFoundPaymentMethod = NO;
+    for (int i=0; i<[user.authenticationList count]; i++) {
+        NSDictionary *dictionary = [user.authenticationList objectAtIndex:i];
+        if ([[dictionary objectForKey:@"Provider"] isEqualToString:BRAINTREE_PAYMENT] || [[dictionary objectForKey:@"Provider"] isEqualToString:DWOLLA_PAYMENT] || [[dictionary objectForKey:@"Provider"] isEqualToString:PAYPAL_PAYMENT]) {
+            hasFoundPaymentMethod = YES;
+            break;
+        }
+    }
+    if (hasFoundPaymentMethod) {
+        PaymentMethodsAlertView *paymentAlert = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"PaymentMethodsAlertView"];
+        paymentAlert.delegate = self;
+        paymentAlert.parentController = self;
+        [paymentAlert show];
+    }
+    else {
+        [self.view setUserInteractionEnabled:NO];
+        no_payment_view.alpha = 0.0;
+        no_payment_view.center = self.view.center;
+        [UIView animateWithDuration:0.3 animations:^{
+            no_payment_view.alpha = 1.0;
+        }completion:^(BOOL finished) {
+            if (finished) {
+                [self.view setUserInteractionEnabled:YES];
+            }
+        }];
+    }
+}
+
+-(void)showBeveragesAlertView {
+    
+    [self.view setUserInteractionEnabled:NO];
+    beverage_alert_view.alpha = 0.0;
+    beverage_alert_view.center = self.view.center;
+    [UIView animateWithDuration:0.3 animations:^{
+        beverage_alert_view.alpha = 1.0;
+    }completion:^(BOOL finished) {
+        if (finished) {
+            [self.view setUserInteractionEnabled:YES];
+        }
+    }];
+}
+
+-(void)hideBeveragesAlertView {
+    
+    CGRect frame = beverage_alert_view.frame;
+    frame.origin.y = self.view.frame.size.height;
+    [UIView animateWithDuration:0.3 animations:^{
+        beverage_alert_view.alpha = 0.0;
+    }completion:^(BOOL finished) {
+        if (finished) {
+            beverage_alert_view.frame = frame;
+        }
+    }];
+}
+
+-(NSArray*)getBeveragesList {
+    
+    RestaurantModel *restaurantModel = [orderDetails objectForKey:@"restaurantModel"];
+    NSArray *categories = restaurantModel.foodCategoryList;
+    NSArray *beverages = nil;
+    for (int i=0; i<[categories count]; i++) {
+        NSDictionary *category = [categories objectAtIndex:i];
+        if ([[category objectForKey:@"VisibleToMerchantOnly"] intValue] == 0 && [[category objectForKey:@"Name"] isEqualToString:@"Beverages"]) {
+            beverages = [[category objectForKey:@"FoodItemList"] objectForKey:@"List"];
+            break;
+        }
+    }
+    return beverages;
+}
+
+-(BOOL)foundBeveragesInParkedOrder {
+    
+    BOOL found = NO;
+    NSArray *beverages = [self getBeveragesList];
+    if (beverages && [beverages count] > 0) {
+        for (int i=0; i<[beverages count] && !found; i++) {
+            NSDictionary *beverage = [beverages objectAtIndex:i];
+            for (int j=0; j<[foodItemsList count] && !found; j++) {
+                NSDictionary *foodItem = [foodItemsList objectAtIndex:j];
+                if ([[beverage objectForKey:@"Id"] isEqualToString:[foodItem objectForKey:@"Id"]]) {
+                    found = YES;
+                }
+            }
+        }
+    }
+    else {
+        found = YES;
+    }
+    return found;
+}
+
 #pragma mark
 #pragma mark Logical Methods
 
@@ -652,32 +752,11 @@
 -(IBAction)creditCardButtonClick:(id)sender {
     
     if (isParkedOrderUpdated) {
-        UserModel *user = [AppInfo sharedInfo].user;
-        BOOL hasFoundPaymentMethod = NO;
-        for (int i=0; i<[user.authenticationList count]; i++) {
-            NSDictionary *dictionary = [user.authenticationList objectAtIndex:i];
-            if ([[dictionary objectForKey:@"Provider"] isEqualToString:BRAINTREE_PAYMENT] || [[dictionary objectForKey:@"Provider"] isEqualToString:DWOLLA_PAYMENT] || [[dictionary objectForKey:@"Provider"] isEqualToString:PAYPAL_PAYMENT]) {
-                hasFoundPaymentMethod = YES;
-                break;
-            }
-        }
-        if (hasFoundPaymentMethod) {
-            PaymentMethodsAlertView *paymentAlert = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"PaymentMethodsAlertView"];
-            paymentAlert.delegate = self;
-            paymentAlert.parentController = self;
-            [paymentAlert show];
+        if ([self foundBeveragesInParkedOrder]) {
+            [self showPaymentMethodsIfAvailable];
         }
         else {
-            [self.view setUserInteractionEnabled:NO];
-            no_payment_view.alpha = 0.0;
-            no_payment_view.center = self.view.center;
-            [UIView animateWithDuration:0.3 animations:^{
-                no_payment_view.alpha = 1.0;
-            }completion:^(BOOL finished) {
-                if (finished) {
-                    [self.view setUserInteractionEnabled:YES];
-                }
-            }];
+            [self showBeveragesAlertView];
         }
     }
     else {
@@ -997,6 +1076,40 @@
     gratuityAlert.gratuityAmount = gratuityAmount;
     gratuityAlert.delegate = self;
     [gratuityAlert show];
+}
+
+-(IBAction)yesBeverageAction:(id)sender {
+    
+    [self hideBeveragesAlertView];
+    NSArray *beverages = [self getBeveragesList];
+    if (beverages && [beverages count] > 0) {
+        RestaurantModel *restaurantModel = [orderDetails objectForKey:@"restaurantModel"];
+        NSArray *categories = restaurantModel.foodCategoryList;
+        FoodCategoriesViewController *foodCategoriesVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"FoodCategoriesViewController"];
+        [foodCategoriesVC setFoodCategories:categories];
+        foodCategoriesVC.isParkedOrder = YES;
+        foodCategoriesVC.quantity = (int)[foodItemsList count];
+        foodCategoriesVC.price = [[total_cost_lbl.text stringByReplacingOccurrencesOfString:@"$" withString:@""] floatValue];
+        for (int i=0; i<[categories count]; i++) {
+            NSDictionary *category = [categories objectAtIndex:i];
+            if ([[category objectForKey:@"VisibleToMerchantOnly"] intValue] == 0 && [[category objectForKey:@"Name"] isEqualToString:@"Beverages"]) {
+                FoodItemViewController *foodItemVC = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"FoodItemViewController"];
+                [foodItemVC setFoodItems:[[category objectForKey:@"FoodItemList"] objectForKey:@"List"]];
+                foodItemVC.isParkedOrder = YES;
+                foodItemVC.quantity = (int)[foodItemsList count];;
+                foodItemVC.price = foodCategoriesVC.price;
+                [self.navigationController pushViewController:foodCategoriesVC animated:NO];
+                [self.navigationController pushViewController:foodItemVC animated:YES];
+                break;
+            }
+        }
+    }
+}
+
+-(IBAction)noBeverageAction:(id)sender {
+    
+    [self hideBeveragesAlertView];
+    [self showPaymentMethodsIfAvailable];
 }
 
 -(IBAction)longPressGesture:(UILongPressGestureRecognizer*)sender {

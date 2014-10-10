@@ -30,7 +30,7 @@
                 </view>
                 <view contentMode="scaleToFill" id="oUw-jZ-msH">
                     <rect key="frame" x="10" y="70" width="300" height="272"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <subviews>
                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Gratuity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="N0d-HE-Bww">
                             <rect key="frame" x="59" y="7" width="182" height="34"/>

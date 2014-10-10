@@ -267,12 +267,12 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please check your Location Settings and try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-//    [alert show];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Please check your Location Settings and try again." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    [alert show];
     
-    coordinate.latitude = 36.049805;
-    coordinate.longitude = -115.244096;
-    [self requestForRestaurants];
+//    coordinate.latitude = 36.049805;
+//    coordinate.longitude = -115.244096;
+//    [self requestForRestaurants];
 }
 
 #pragma mark

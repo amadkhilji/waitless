@@ -188,7 +188,35 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
     
     textField.inputAccessoryView = toolbar;
+    if ([UIScreen mainScreen].bounds.size.height <= 480.0) {
+//        [self.view setUserInteractionEnabled:NO];
+        CGRect frame = alertView.frame;
+        frame.origin.y = 20.0;
+        [UIView animateWithDuration:0.2 animations:^{
+            alertView.frame = frame;
+        }completion:^(BOOL finished){
+            if (finished) {
+//                [self.view setUserInteractionEnabled:YES];
+            }
+        }];
+    }
     return YES;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+    
+    if ([UIScreen mainScreen].bounds.size.height <= 480.0) {
+//        [self.view setUserInteractionEnabled:NO];
+        CGRect frame = alertView.frame;
+        frame.origin.y = 70.0;
+        [UIView animateWithDuration:0.2 animations:^{
+            alertView.frame = frame;
+        }completion:^(BOOL finished){
+            if (finished) {
+//                [self.view setUserInteractionEnabled:YES];
+            }
+        }];
+    }
 }
 
 @end

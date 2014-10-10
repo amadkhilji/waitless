@@ -154,6 +154,14 @@
 #pragma mark
 #pragma mark IBAction Methods
 
+-(IBAction)cancelAction:(id)sender {
+
+    [self dismiss];
+    if (delegate && [delegate respondsToSelector:@selector(customAlertView:dismissedWithValue:)]) {
+        [delegate customAlertView:self dismissedWithValue:nil];
+    }
+}
+
 -(IBAction)doneAction:(id)sender {
     
     [self dismiss];

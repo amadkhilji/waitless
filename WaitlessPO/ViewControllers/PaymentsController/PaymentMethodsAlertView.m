@@ -213,16 +213,21 @@
 #pragma mark
 #pragma mark UITableViewDelegate/UITableViewDataSource Methods
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 44.0;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    int count = 0;
+    NSInteger count = 0;
     if ([paymentMethods count] == 0) {
         count = 1;
     }
     else {
         count = [paymentMethods count];
     }
-    float height = (count*tableView.rowHeight)+count;
+    float height = (count*44.0)+count;
     CGRect frame = paymentMethodTable.frame;
     frame.size.height = height;
     paymentMethodTable.frame = frame;
@@ -230,6 +235,9 @@
     frame.size.height = paymentMethodTable.frame.origin.y+paymentMethodTable.frame.size.height;
     alertView.frame = frame;
     alertView.center = self.view.center;
+    frame = alertView.frame;
+    frame.origin.y = frame.origin.y-paymentMethodTable.frame.origin.y;
+    alertView.frame = frame;
     
     return count;
 }

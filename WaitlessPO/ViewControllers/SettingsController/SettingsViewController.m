@@ -51,9 +51,9 @@
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     UserModel *user = [AppInfo sharedInfo].user;
     email_lbl.text = user.emailAddress;
-    gratuity_slider.value = ceilf(user.gratuity_rate);
-    gratuity_lbl.text = [NSString stringWithFormat:@"Gratuity Rate: %.1f%%", ceilf(gratuity_slider.value)];
-    gratuity_slider_lbl.text = [NSString stringWithFormat:@"%.1f%%", ceilf(gratuity_slider.value)];
+    gratuity_slider.value = user.gratuity_rate;
+    gratuity_lbl.text = [NSString stringWithFormat:@"Gratuity Rate: %.1f%%", gratuity_slider.value];
+    gratuity_slider_lbl.text = [NSString stringWithFormat:@"%.1f%%", gratuity_slider.value];
     notify_me_btn.selected = user.shouldNotifyMePromotions;
     if (user.isPasscodeActive && [defaults objectForKey:PASSCODE_VALUE] && [[defaults objectForKey:PASSCODE_VALUE] length] == 4) {
         passcode_btn.selected = YES;
@@ -186,8 +186,8 @@
     
     [self.view setUserInteractionEnabled:NO];
     
-    gratuity_lbl.text = [NSString stringWithFormat:@"Gratuity Rate: %.1f%%", ceilf(gratuity_slider.value)];
-    [AppInfo sharedInfo].user.gratuity_rate = ceilf(gratuity_slider.value);
+    gratuity_lbl.text = [NSString stringWithFormat:@"Gratuity Rate: %.1f%%", gratuity_slider.value];
+    [AppInfo sharedInfo].user.gratuity_rate = gratuity_slider.value;
     [[AppInfo sharedInfo].user saveUser];
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -203,13 +203,13 @@
 
 -(IBAction)gratuityValueChangedAction:(id)sender {
     
-    float fraction = ceilf(gratuity_slider.value)-gratuity_slider.value;
-    if (fraction < 0.5) {
-        gratuity_slider.value = floorf(gratuity_slider.value);
-    }
-    else {
-        gratuity_slider.value = ceilf(gratuity_slider.value);
-    }
+//    float fraction = ceilf(gratuity_slider.value)-gratuity_slider.value;
+//    if (fraction < 0.5) {
+//        gratuity_slider.value = floorf(gratuity_slider.value);
+//    }
+//    else {
+//        gratuity_slider.value = ceilf(gratuity_slider.value);
+//    }
     gratuity_slider_lbl.text = [NSString stringWithFormat:@"%.1f%%", gratuity_slider.value];
 }
 

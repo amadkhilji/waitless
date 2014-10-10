@@ -22,6 +22,7 @@
 -(void)loadFoodAdditionsList:(NSArray*)list;
 -(void)foodItemAtIndex:(NSInteger)index selected:(BOOL)isSelected;
 
+-(IBAction)cancelAction:(id)sender;
 -(IBAction)doneAction:(id)sender;
 
 @end

@@ -320,8 +320,11 @@
         }
         [foodData setObject:foodAdditionIds forKey:@"FoodItemAdditionId"];
         [foodData setObject:[NSNumber numberWithFloat:amount] forKey:@"Price"];
-        [self addFoodItemToOrder];
     }
+    else {
+        [foodData setObject:@"" forKey:@"FoodItemAdditionId"];
+    }
+    [self addFoodItemToOrder];
 }
 
 @end

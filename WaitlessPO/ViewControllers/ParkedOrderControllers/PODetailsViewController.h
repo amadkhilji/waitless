@@ -20,7 +20,7 @@
     IBOutlet UILabel *title_lbl, *restaurant_name_lbl, *address_lbl, *city_state_lbl, *time_lbl, *date_lbl, *party_size_lbl, *price_lbl, *tax_rate_lbl, *sub_total_lbl, *gratuity_title_lbl, *gratuity_rate_lbl, *total_cost_lbl, *credit_card_lbl, *convenience_lbl, *pickUpTime_lbl, *order_number_lbl, *button_title_lbl;
     IBOutlet UIButton *phone_btn, *isFavorite_btn1, *isFavorite_btn2, *credit_card_btn, *update_order_btn;
     IBOutlet UIImageView *restaurant_image;
-    IBOutlet UIView *delete_order_view, *footerView, *opened_order_bar, *closed_order_bar, *fulfilled_order_bar, *no_payment_view, *available_payment_view, *notes_view, *ok_btn_view, *send_btn_view, *credit_card_alert, *payNow_alert_view, *convenience_footer_view, *pickUpTime_footer_view;
+    IBOutlet UIView *delete_order_view, *footerView, *opened_order_bar, *closed_order_bar, *fulfilled_order_bar, *no_payment_view, *available_payment_view, *notes_view, *ok_btn_view, *send_btn_view, *credit_card_alert, *payNow_alert_view, *convenience_footer_view, *pickUpTime_footer_view, *beverage_alert_view;
     IBOutlet UITextView *notesTV;
     IBOutlet UIToolbar *toolbar;
     IBOutlet UITableView *orderTable;
@@ -73,6 +73,8 @@
 -(IBAction)cancelPayNowOrderAction:(id)sender;
 -(IBAction)editPayNowOrderAction:(id)sender;
 -(IBAction)editGraduityAction:(id)sender;
+-(IBAction)yesBeverageAction:(id)sender;
+-(IBAction)noBeverageAction:(id)sender;
 
 -(IBAction)longPressGesture:(UILongPressGestureRecognizer*)sender;
 
