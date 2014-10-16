@@ -74,8 +74,8 @@ typedef enum {
 
 @protocol PaymentDelegate <NSObject>
 
--(void)paymentSuccessful;
--(void)paymentFailed;
+-(void)paymentSuccessful:(NSString*)message;
+-(void)paymentFailed:(NSString*)message;
 
 @end
 

@@ -1403,6 +1403,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Amad Khilji";
 				TargetAttributes = {
+					00A330A9181ED94B0012B0AB = {
+						DevelopmentTeam = 7AJP62HTWA;
+					};
 					00A330CA181ED94B0012B0AB = {
 						TestTargetID = 00A330A9181ED94B0012B0AB;
 					};

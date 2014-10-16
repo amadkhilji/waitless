@@ -251,8 +251,9 @@
     container.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:container animated:YES completion:nil];
     
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)]) {
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
     else {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];
@@ -276,8 +277,9 @@
     container.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:container animated:YES completion:nil];
     
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerForRemoteNotifications)]) {
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(registerUserNotificationSettings:)]) {
+//        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert) categories:nil];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
     else {
         [[UIApplication sharedApplication] registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound];

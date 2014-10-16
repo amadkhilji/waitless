@@ -103,10 +103,12 @@
             [phoneNumber insertString:@"-" atIndex:9];
             [phone_btn setTitle:phoneNumber forState:UIControlStateNormal];
         }
+        edit_gratuity_link_view.hidden = YES;
         if ([[orderDetails objectForKey:@"Status"] intValue] == ParkedOrderStatusOpened) {
             opened_order_bar.hidden = NO;
             closed_order_bar.hidden = YES;
             fulfilled_order_bar.hidden = YES;
+            edit_gratuity_link_view.hidden = NO;
         }
         else if ([[orderDetails objectForKey:@"Status"] intValue] == ParkedOrderStatusClosed || [[orderDetails objectForKey:@"Status"] intValue] == ParkedOrderStatusRefunded || [[orderDetails objectForKey:@"Status"] intValue] == ParkedOrderStatusVoided) {
             opened_order_bar.hidden = YES;
@@ -1075,6 +1077,12 @@
     gratuityAlert.totalCost = totalCost;
     gratuityAlert.gratuityAmount = gratuityAmount;
     gratuityAlert.delegate = self;
+    if ([[orderDetails objectForKey:@"Status"] intValue] == ParkedOrderStatusOpened) {
+        gratuityAlert.canUpdateGratuity = YES;
+    }
+    else {
+        gratuityAlert.canUpdateGratuity = NO;
+    }
     [gratuityAlert show];
 }
 
@@ -1373,11 +1381,15 @@
 #pragma mark
 #pragma mark PaymentDelegate Methods
 
--(void)paymentSuccessful {
+-(void)paymentSuccessful:(NSString *)message {
     
     [self performSelector:@selector(showSuccessMessage:) withObject:@"Your payment has been processed successfully." afterDelay:0.3];
     NSMutableDictionary *closedOrder = [NSMutableDictionary dictionaryWithDictionary:orderDetails];
     [closedOrder setObject:[NSNumber numberWithInt:ParkedOrderStatusClosed] forKey:@"Status"];
+    RestaurantModel *restaurantModel = [orderDetails objectForKey:@"restaurantModel"];
+    if (restaurantModel.isPayNow) {
+        [closedOrder setObject:[NSDate date] forKey:@"parkedOrderDate"];
+    }
     orderDetails = Nil;
     orderDetails = closedOrder;
     opened_order_bar.hidden = YES;
@@ -1386,12 +1398,17 @@
     [[AppInfo sharedInfo].user closeParkedOrderWithID:[orderDetails objectForKey:@"Id"]];
     [self reloadParkedOrderData];
     isForegroundUpdate = YES;
-    [self performSelector:@selector(requestForGettingParkedOrder) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(requestForUpdateParkedOrder) withObject:nil afterDelay:1.0];
 }
 
--(void)paymentFailed {
+-(void)paymentFailed:(NSString *)message {
     
-    [self performSelector:@selector(showErrorMessage:) withObject:@"Error! couldn't process your payment." afterDelay:0.3];
+    if (message && (NSNull*)message != [NSNull null] && message.length > 0) {
+        [self performSelector:@selector(showErrorMessage:) withObject:message afterDelay:0.3];
+    }
+    else {
+        [self performSelector:@selector(showErrorMessage:) withObject:@"Error! couldn't process your payment." afterDelay:0.3];
+    }
 }
 
 #pragma mark

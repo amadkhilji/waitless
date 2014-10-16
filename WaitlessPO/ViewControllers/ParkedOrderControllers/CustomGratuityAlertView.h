@@ -11,12 +11,13 @@
 
 @interface CustomGratuityAlertView : UIViewController <UITextFieldDelegate> {
     
-    IBOutlet UIView         *alertView, *backgroundView;
+    IBOutlet UIView         *alertView, *backgroundView, *cancel_btn_bar, *save_btn_bar;
     IBOutlet UITextField    *gratuity_TF;
     IBOutlet UIButton       *gratuity10_btn, *gratuity15_btn, *gratuity20_btn, *gratuityCustom_btn;
     IBOutlet UIToolbar      *toolbar;
 }
 
+@property (nonatomic, assign) BOOL  canUpdateGratuity;
 @property (nonatomic, assign) float totalCost, gratuityAmount;
 @property (nonatomic, assign) id<CustomAlertViewDelegate, NSObject> delegate;
 

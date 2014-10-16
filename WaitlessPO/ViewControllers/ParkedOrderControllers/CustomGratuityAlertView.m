@@ -19,6 +19,7 @@
 
 @implementation CustomGratuityAlertView
 
+@synthesize canUpdateGratuity;
 @synthesize totalCost, gratuityAmount;
 @synthesize delegate;
 
@@ -100,6 +101,15 @@
     gratuity_TF.text = [NSString stringWithFormat:@"%.2f", gratuityAmount];
     gratuity_TF.enabled = NO;
     gratuityAmount = (totalCost*10.0)/100.0;
+    
+    if (canUpdateGratuity) {
+        cancel_btn_bar.hidden = YES;
+        save_btn_bar.hidden = NO;
+    }
+    else {
+        save_btn_bar.hidden = YES;
+        cancel_btn_bar.hidden = NO;
+    }
 }
 
 #pragma mark

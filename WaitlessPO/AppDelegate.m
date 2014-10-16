@@ -124,6 +124,11 @@ static NSString * const kClientID = @"36169379961.apps.googleusercontent.com";//
 #pragma mark
 #pragma mark PushNotification call backs
 
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     
     // We have received a new device token. This method is usually called right

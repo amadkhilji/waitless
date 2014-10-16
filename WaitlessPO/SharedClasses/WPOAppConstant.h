@@ -29,7 +29,7 @@
 #define PASSCODE_VALUE          @"Passcode_Value"
 #define NOTIFY_ME               @"Notify_Me_Promotions"
 #define ACTIVE_SESSION_TYPE     @"Active_Session_Type"
-#define APP_VERSION             @"0.6.2"
+#define APP_VERSION             @"0.6.3"
 #define EMAIL                   @"User_Email"
 #define PASSWORD                @"User_Password"
 

@@ -178,13 +178,13 @@
     if (data && [data isKindOfClass:[NSDictionary class]] && [data objectForKey:@"IsSuccessful"] && [[data objectForKey:@"IsSuccessful"] boolValue]) {
         [self dismissPaymentAlert];
         if (data && [data isKindOfClass:[NSDictionary class]] && [data objectForKey:@"IsSuccessful"] && [[data objectForKey:@"IsSuccessful"] boolValue]) {
-            if (delegate && [delegate respondsToSelector:@selector(paymentSuccessful)]) {
-                [delegate paymentSuccessful];
+            if (delegate && [delegate respondsToSelector:@selector(paymentSuccessful:)]) {
+                [delegate paymentSuccessful:[data objectForKey:@"Message"]];
             }
         }
         else {
-            if (delegate && [delegate respondsToSelector:@selector(paymentFailed)]) {
-                [delegate paymentFailed];
+            if (delegate && [delegate respondsToSelector:@selector(paymentFailed:)]) {
+                [delegate paymentFailed:[data objectForKey:@"Message"]];
             }
         }
     }
