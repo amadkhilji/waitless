@@ -34,6 +34,7 @@
 }
 
 @property (atomic, assign) float gratuity_rate;
+@property (atomic, assign) NSTimeInterval   pickUpInterval;
 @property (nonatomic, readonly) NSMutableArray *foodItemsList;
 @property (nonatomic, retain) NSDictionary *orderDetails;
 

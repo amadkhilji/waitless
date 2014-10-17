@@ -175,9 +175,9 @@
 -(void)didFinishRequest:(HTTPRequest*)httpRequest withData:(id)data {
     
     [SVProgressHUD dismiss];
-    if (data && [data isKindOfClass:[NSDictionary class]] && [data objectForKey:@"IsSuccessful"] && [[data objectForKey:@"IsSuccessful"] boolValue]) {
+    if (data && [data isKindOfClass:[NSDictionary class]]) {
         [self dismissPaymentAlert];
-        if (data && [data isKindOfClass:[NSDictionary class]] && [data objectForKey:@"IsSuccessful"] && [[data objectForKey:@"IsSuccessful"] boolValue]) {
+        if ([data objectForKey:@"IsSuccessful"] && [[data objectForKey:@"IsSuccessful"] boolValue]) {
             if (delegate && [delegate respondsToSelector:@selector(paymentSuccessful:)]) {
                 [delegate paymentSuccessful:[data objectForKey:@"Message"]];
             }

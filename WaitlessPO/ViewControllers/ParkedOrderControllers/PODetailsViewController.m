@@ -46,6 +46,7 @@
 
 @implementation PODetailsViewController
 
+@synthesize pickUpInterval;
 @synthesize gratuity_rate;
 @synthesize foodItemsList;
 @synthesize orderDetails;
@@ -1388,7 +1389,7 @@
     [closedOrder setObject:[NSNumber numberWithInt:ParkedOrderStatusClosed] forKey:@"Status"];
     RestaurantModel *restaurantModel = [orderDetails objectForKey:@"restaurantModel"];
     if (restaurantModel.isPayNow) {
-        [closedOrder setObject:[NSDate date] forKey:@"parkedOrderDate"];
+        [closedOrder setObject:[[NSDate date] dateByAddingTimeInterval:pickUpInterval] forKey:@"parkedOrderDate"];
     }
     orderDetails = Nil;
     orderDetails = closedOrder;

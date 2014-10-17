@@ -239,7 +239,7 @@
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     if (restaurantModel.isPayNow) {
         NSInteger row = [payNowTimePicker selectedRowInComponent:0]+1;
-        NSTimeInterval interval = (row*15)*60;
+        NSTimeInterval interval = (row*20)*60;
         date = [date dateByAddingTimeInterval:interval];
         [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
     }
@@ -783,6 +783,9 @@
 //                po_DetailsVC.gratuity_rate = [AppInfo sharedInfo].user.gratuity_rate;
                 [pageController.navigationController pushViewController:po_DetailsVC animated:YES];
                 if (restaurantModel.isPayNow) {
+                    NSInteger row = [payNowTimePicker selectedRowInComponent:0]+1;
+                    NSTimeInterval interval = (row*20)*60;
+                    po_DetailsVC.pickUpInterval = interval;
                     [self cancelPayNowOrderAction:nil];
                 }
                 else {
