@@ -164,9 +164,6 @@
 		00D7E40B1853FF3E003ED9FA /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D7E40A1853FF3E003ED9FA /* SettingsViewController.m */; };
 		00D7E40E1853FF51003ED9FA /* ProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00D7E40D1853FF51003ED9FA /* ProfileViewController.m */; };
 		00EDEB83189ACDC600224430 /* restaurant_place_holder.png in Resources */ = {isa = PBXBuildFile; fileRef = 00EDEB82189ACDC600224430 /* restaurant_place_holder.png */; };
-		00F68A8E186A21B100DD870D /* GoogleOpenSource.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F68A8B186A21B100DD870D /* GoogleOpenSource.framework */; };
-		00F68A8F186A21B100DD870D /* GooglePlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F68A8C186A21B100DD870D /* GooglePlus.framework */; };
-		00F68A90186A21B100DD870D /* GooglePlus.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 00F68A8D186A21B100DD870D /* GooglePlus.bundle */; };
 		00FCAD8E18AF74CD0043FDB0 /* OffersCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 00FCAD8D18AF74CD0043FDB0 /* OffersCell.m */; };
 		00FCAD9018AF74E80043FDB0 /* OffersCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 00FCAD8F18AF74E80043FDB0 /* OffersCell.xib */; };
 		77022B241871769B00BF6CC8 /* PasscodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 77022B231871769B00BF6CC8 /* PasscodeViewController.m */; };
@@ -500,9 +497,6 @@
 		00D7E40C1853FF51003ED9FA /* ProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfileViewController.h; sourceTree = "<group>"; };
 		00D7E40D1853FF51003ED9FA /* ProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfileViewController.m; sourceTree = "<group>"; };
 		00EDEB82189ACDC600224430 /* restaurant_place_holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restaurant_place_holder.png; sourceTree = "<group>"; };
-		00F68A8B186A21B100DD870D /* GoogleOpenSource.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleOpenSource.framework; sourceTree = "<group>"; };
-		00F68A8C186A21B100DD870D /* GooglePlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GooglePlus.framework; sourceTree = "<group>"; };
-		00F68A8D186A21B100DD870D /* GooglePlus.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = GooglePlus.bundle; sourceTree = "<group>"; };
 		00FCAD8C18AF74CD0043FDB0 /* OffersCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OffersCell.h; sourceTree = "<group>"; };
 		00FCAD8D18AF74CD0043FDB0 /* OffersCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OffersCell.m; sourceTree = "<group>"; };
 		00FCAD8F18AF74E80043FDB0 /* OffersCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OffersCell.xib; sourceTree = "<group>"; };
@@ -646,13 +640,11 @@
 				7750BDF618687AE600A9C29F /* MapKit.framework in Frameworks */,
 				77A71EF31921F5D5002A99DA /* YAJLiOS.framework in Frameworks */,
 				77DAF0A6184E201800DCFDC7 /* QuartzCore.framework in Frameworks */,
-				00F68A8E186A21B100DD870D /* GoogleOpenSource.framework in Frameworks */,
 				7757B2F218463741000C4301 /* AssetsLibrary.framework in Frameworks */,
 				00789D2C184651640064845C /* FacebookSDK.framework in Frameworks */,
 				7757B2F018463737000C4301 /* MediaPlayer.framework in Frameworks */,
 				7757B2E21846348B000C4301 /* CoreMotion.framework in Frameworks */,
 				000816D8182530F50064BCB1 /* CoreLocation.framework in Frameworks */,
-				00F68A8F186A21B100DD870D /* GooglePlus.framework in Frameworks */,
 				00A330B0181ED94B0012B0AB /* CoreGraphics.framework in Frameworks */,
 				00A330B2181ED94B0012B0AB /* UIKit.framework in Frameworks */,
 				00A330AE181ED94B0012B0AB /* Foundation.framework in Frameworks */,
@@ -1007,9 +999,6 @@
 		00A330AC181ED94B0012B0AB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				00F68A8D186A21B100DD870D /* GooglePlus.bundle */,
-				00F68A8B186A21B100DD870D /* GoogleOpenSource.framework */,
-				00F68A8C186A21B100DD870D /* GooglePlus.framework */,
 				77A71EF21921F5D5002A99DA /* YAJLiOS.framework */,
 				7750BDF518687AE600A9C29F /* MapKit.framework */,
 				00276419186B44F2009412E9 /* AddressBook.framework */,
@@ -1465,7 +1454,6 @@
 				77841E421851FAB300434603 /* logout_icon@2x.png in Resources */,
 				77841E391851F2CC00434603 /* payment_icon.png in Resources */,
 				77391484184DFDD1001CC833 /* no_image.png in Resources */,
-				00F68A90186A21B100DD870D /* GooglePlus.bundle in Resources */,
 				00C1F382184E3EA600C52F38 /* Icon@2x.png in Resources */,
 				7739147A184DED74001CC833 /* near_icon@2x.png in Resources */,
 				002253D91824177E00695A76 /* rate_active_star.png in Resources */,
@@ -1827,7 +1815,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "C535750F-8D7B-433D-ACFF-938C85215663";
+				PROVISIONING_PROFILE = "531F5F0D-213B-46D1-832C-3759DE34F9B3";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

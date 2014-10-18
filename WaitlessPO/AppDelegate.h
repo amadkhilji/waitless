@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GooglePlus/GooglePlus.h>
+//#import <GooglePlus/GooglePlus.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, GPPDeepLinkDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate>//, GPPDeepLinkDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

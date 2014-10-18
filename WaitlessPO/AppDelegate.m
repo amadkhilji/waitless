@@ -27,11 +27,11 @@ static NSString * const kClientID = @"36169379961.apps.googleusercontent.com";//
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Set app's client ID for |GPPSignIn| and |GPPShare|.
-    [GPPSignIn sharedInstance].clientID = kClientID;
+//    [GPPSignIn sharedInstance].clientID = kClientID;
     
     // Read Google+ deep-link data.
-    [GPPDeepLink setDelegate:self];
-    [GPPDeepLink readDeepLinkAfterInstall];
+//    [GPPDeepLink setDelegate:self];
+//    [GPPDeepLink readDeepLinkAfterInstall];
     
     [[AppInfo sharedInfo] loadUserSession];
     
@@ -113,12 +113,13 @@ static NSString * const kClientID = @"36169379961.apps.googleusercontent.com";//
          annotation:(id)annotation {
     
     [SVProgressHUD dismiss];
-    if ([FBAppCall handleOpenURL:url sourceApplication:sourceApplication]) {
-        return YES;
-    }
-    return [GPPURLHandler handleURL:url
-                  sourceApplication:sourceApplication
-                         annotation:annotation];
+    return [FBAppCall handleOpenURL:url sourceApplication:sourceApplication];
+//    if ([FBAppCall handleOpenURL:url sourceApplication:sourceApplication]) {
+//        return YES;
+//    }
+//    return [GPPURLHandler handleURL:url
+//                  sourceApplication:sourceApplication
+//                         annotation:annotation];
 }
 
 #pragma mark
@@ -203,16 +204,16 @@ static NSString * const kClientID = @"36169379961.apps.googleusercontent.com";//
 
 #pragma mark - GPPDeepLinkDelegate
 
-- (void)didReceiveDeepLink:(GPPDeepLink *)deepLink {
-    // An example to handle the deep link data.
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@"Deep-link Data"
-                          message:[deepLink deepLinkID]
-                          delegate:nil
-                          cancelButtonTitle:@"OK"
-                          otherButtonTitles:nil];
-    [alert show];
-}
+//- (void)didReceiveDeepLink:(GPPDeepLink *)deepLink {
+//    // An example to handle the deep link data.
+//    UIAlertView *alert = [[UIAlertView alloc]
+//                          initWithTitle:@"Deep-link Data"
+//                          message:[deepLink deepLinkID]
+//                          delegate:nil
+//                          cancelButtonTitle:@"OK"
+//                          otherButtonTitles:nil];
+//    [alert show];
+//}
 
 #pragma mark
 #pragma mark UIAlertViewDelegate Methods

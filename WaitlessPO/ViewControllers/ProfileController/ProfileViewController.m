@@ -12,8 +12,8 @@
 #import "ProfileCell.h"
 #import "UIImageView+WebCache.h"
 #import <QuartzCore/QuartzCore.h>
-#import <GooglePlus/GooglePlus.h>
-#import <GoogleOpenSource/GoogleOpenSource.h>
+//#import <GooglePlus/GooglePlus.h>
+//#import <GoogleOpenSource/GoogleOpenSource.h>
 
 @interface ProfileViewController ()
 
@@ -126,7 +126,7 @@
         [userImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?height=200&width=200", [[AppInfo sharedInfo].fbUserData objectForKey:@"id"]]]];
     }
     else if ([AppInfo sharedInfo].sessionType == SessionTypeGooglePlus) {
-        [userImage setImageWithURL:[NSURL URLWithString:[GPPSignIn sharedInstance].googlePlusUser.image.url]];
+//        [userImage setImageWithURL:[NSURL URLWithString:[GPPSignIn sharedInstance].googlePlusUser.image.url]];
     }
     userImage.layer.cornerRadius = userImage.frame.size.width/2.0;
     userImage.layer.masksToBounds = YES;

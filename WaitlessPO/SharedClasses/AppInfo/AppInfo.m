@@ -11,7 +11,7 @@
 #import "RestaurantModel.h"
 #import "HTTPRequest.h"
 #import <FacebookSDK/FacebookSDK.h>
-#import <GooglePlus/GooglePlus.h>
+//#import <GooglePlus/GooglePlus.h>
 
 @implementation AppInfo
 
@@ -227,7 +227,7 @@ static AppInfo *singletonInstance;
         [[FBSession activeSession] close];
     }
     else if (sessionType == SessionTypeGooglePlus) {
-        [[GPPSignIn sharedInstance] signOut];
+//        [[GPPSignIn sharedInstance] signOut];
     }
     [user deleteUser];
     sessionType = SessionTypeNone;

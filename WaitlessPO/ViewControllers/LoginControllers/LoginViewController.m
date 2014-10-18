@@ -18,7 +18,7 @@
 #import "PasscodeViewController.h"
 #import "DwollaViewController.h"
 #import "PaymentsViewController.h"
-#import <GoogleOpenSource/GoogleOpenSource.h>
+//#import <GoogleOpenSource/GoogleOpenSource.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface LoginViewController ()
@@ -56,7 +56,7 @@
     [scrollView addGestureRecognizer:tapGesture];
     
     [scrollView setContentSize:CGSizeMake(320, 548)];
-    [GPPSignIn sharedInstance].delegate = self;
+//    [GPPSignIn sharedInstance].delegate = self;
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -196,13 +196,13 @@
 
 -(void)requestForGooglePlusSignup {
     
-    [SVProgressHUD showWithStatus:@"Validating user..." maskType:SVProgressHUDMaskTypeGradient];
-    requestType = HTTPRequestTypeGooglePlusSignUp;
-    GTLPlusPerson *user = [GPPSignIn sharedInstance].googlePlusUser;
-    UIDevice *device = [UIDevice currentDevice];
-    NSString *deviceId = [NSString stringWithFormat:@"%@ %@ %@ %@", device.name, device.model, device.systemName, device.systemVersion];
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:user.name.givenName, @"firstName", user.name.familyName, @"lastName", [GPPSignIn sharedInstance].userEmail, @"emailAddress", [NSString stringWithFormat:@"%@", [GPPSignIn sharedInstance].idToken], @"password", @"", @"city", @"", @"state", zipCodeTF.text, @"zipCode", [self getFormattedDateStringFromGoogleString:user.birthday], @"dateofBirth", [[user.gender substringToIndex:1] lowercaseString], @"gender", [NSNumber numberWithBool:YES], @"readTerms", deviceId, @"deviceId", nil];
-    [HTTPRequest requestPostWithMethod:@"MembershipService/User/Add" Params:params andDelegate:self];
+//    [SVProgressHUD showWithStatus:@"Validating user..." maskType:SVProgressHUDMaskTypeGradient];
+//    requestType = HTTPRequestTypeGooglePlusSignUp;
+//    GTLPlusPerson *user = [GPPSignIn sharedInstance].googlePlusUser;
+//    UIDevice *device = [UIDevice currentDevice];
+//    NSString *deviceId = [NSString stringWithFormat:@"%@ %@ %@ %@", device.name, device.model, device.systemName, device.systemVersion];
+//    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:user.name.givenName, @"firstName", user.name.familyName, @"lastName", [GPPSignIn sharedInstance].userEmail, @"emailAddress", [NSString stringWithFormat:@"%@", [GPPSignIn sharedInstance].idToken], @"password", @"", @"city", @"", @"state", zipCodeTF.text, @"zipCode", [self getFormattedDateStringFromGoogleString:user.birthday], @"dateofBirth", [[user.gender substringToIndex:1] lowercaseString], @"gender", [NSNumber numberWithBool:YES], @"readTerms", deviceId, @"deviceId", nil];
+//    [HTTPRequest requestPostWithMethod:@"MembershipService/User/Add" Params:params andDelegate:self];
 }
 
 -(void)requestForFacebookUpdate {
@@ -217,10 +217,10 @@
 
 -(void)requestForGooglePlusUpdate {
     
-    [SVProgressHUD showWithStatus:@"Signing in..." maskType:SVProgressHUDMaskTypeGradient];
-    requestType = HTTPRequestTypeGooglePlusConnect;
-    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[GPPSignIn sharedInstance].userEmail, [NSString stringWithFormat:@"%@", [GPPSignIn sharedInstance].idToken], @"google", nil] forKeys:[NSArray arrayWithObjects:@"emailaddress", @"password", @"thirdPartyType", nil]];
-    [HTTPRequest requestGetWithMethod:@"MembershipService/User/Update" Params:dictionary andDelegate:self];
+//    [SVProgressHUD showWithStatus:@"Signing in..." maskType:SVProgressHUDMaskTypeGradient];
+//    requestType = HTTPRequestTypeGooglePlusConnect;
+//    NSDictionary *dictionary = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:[GPPSignIn sharedInstance].userEmail, [NSString stringWithFormat:@"%@", [GPPSignIn sharedInstance].idToken], @"google", nil] forKeys:[NSArray arrayWithObjects:@"emailaddress", @"password", @"thirdPartyType", nil]];
+//    [HTTPRequest requestGetWithMethod:@"MembershipService/User/Update" Params:dictionary andDelegate:self];
 }
 
 -(void)showMenuViewController {
@@ -365,18 +365,17 @@
 
 -(IBAction)signInWithGoogle:(id)sender {
     
-    if (![GPPSignIn sharedInstance].authentication) {
-        [GPPSignIn sharedInstance].shouldFetchGoogleUserID = YES;
-        [GPPSignIn sharedInstance].shouldFetchGoogleUserEmail = YES;
-        [GPPSignIn sharedInstance].shouldFetchGooglePlusUser = YES;
-        [GPPSignIn sharedInstance].scopes = [NSArray arrayWithObjects:kGTLAuthScopePlusLogin, kGTLAuthScopePlusMe, nil];
-        [[GPPSignIn sharedInstance] authenticate];
-    }
-    else if ([[GPPSignIn sharedInstance] hasAuthInKeychain]) {
-        [SVProgressHUD showWithStatus:@"Connecting with Google+" maskType:SVProgressHUDMaskTypeGradient];
-        [[GPPSignIn sharedInstance] trySilentAuthentication];
-    }
-    
+//    if (![GPPSignIn sharedInstance].authentication) {
+//        [GPPSignIn sharedInstance].shouldFetchGoogleUserID = YES;
+//        [GPPSignIn sharedInstance].shouldFetchGoogleUserEmail = YES;
+//        [GPPSignIn sharedInstance].shouldFetchGooglePlusUser = YES;
+//        [GPPSignIn sharedInstance].scopes = [NSArray arrayWithObjects:kGTLAuthScopePlusLogin, kGTLAuthScopePlusMe, nil];
+//        [[GPPSignIn sharedInstance] authenticate];
+//    }
+//    else if ([[GPPSignIn sharedInstance] hasAuthInKeychain]) {
+//        [SVProgressHUD showWithStatus:@"Connecting with Google+" maskType:SVProgressHUDMaskTypeGradient];
+//        [[GPPSignIn sharedInstance] trySilentAuthentication];
+//    }
 }
 
 -(IBAction)signInWithFB:(id)sender {
@@ -630,19 +629,19 @@
 #pragma mark
 #pragma mark GPPSignInDelegate Methods
 
-- (void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error {
-    
-    [SVProgressHUD dismiss];
-    if (!error) {
-        [SVProgressHUD showWithStatus:@"Authenticating user..." maskType:SVProgressHUDMaskTypeGradient];
-        requestType = HTTPRequestTypeGooglePlusFindUser;
-        NSDictionary *params = [NSDictionary dictionaryWithObject:[GPPSignIn sharedInstance].userEmail forKey:@"emailaddress"];
-        [HTTPRequest requestGetWithMethod:@"MembershipService/Get" Params:params andDelegate:self];
-    }
-    else {
-        NSLog(@"error logging in with google.");
-    }
-}
+//- (void)finishedWithAuth:(GTMOAuth2Authentication *)auth error:(NSError *)error {
+//    
+//    [SVProgressHUD dismiss];
+//    if (!error) {
+//        [SVProgressHUD showWithStatus:@"Authenticating user..." maskType:SVProgressHUDMaskTypeGradient];
+//        requestType = HTTPRequestTypeGooglePlusFindUser;
+//        NSDictionary *params = [NSDictionary dictionaryWithObject:[GPPSignIn sharedInstance].userEmail forKey:@"emailaddress"];
+//        [HTTPRequest requestGetWithMethod:@"MembershipService/Get" Params:params andDelegate:self];
+//    }
+//    else {
+//        NSLog(@"error logging in with google.");
+//    }
+//}
 
 #pragma mark
 #pragma mark UIAlertViewDelegate Methods

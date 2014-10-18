@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <GooglePlus/GooglePlus.h>
+//#import <GooglePlus/GooglePlus.h>
 #import "HTTPRequest.h"
 
-@interface LoginViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, HTTPRequestDelegate, GPPSignInDelegate> {
+@interface LoginViewController : UIViewController <UITextFieldDelegate, UIActionSheetDelegate, HTTPRequestDelegate> {//, GPPSignInDelegate> {
     
     IBOutlet UIButton   *login_btn, *done_btn;
     IBOutlet UIScrollView   *scrollView;

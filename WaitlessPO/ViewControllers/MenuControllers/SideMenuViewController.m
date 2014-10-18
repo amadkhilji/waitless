@@ -21,8 +21,8 @@
 #import "RestaurantDetailsViewController.h"
 #import "PageSwipeController.h"
 #import "WebViewController.h"
-#import <GooglePlus/GooglePlus.h>
-#import <GoogleOpenSource/GoogleOpenSource.h>
+//#import <GooglePlus/GooglePlus.h>
+//#import <GoogleOpenSource/GoogleOpenSource.h>
 #import <FacebookSDK/FacebookSDK.h>
 
 @interface SideMenuViewController ()
